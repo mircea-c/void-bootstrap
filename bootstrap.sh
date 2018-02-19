@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-xbps-install -y vim curl i3 dmenu xorg firefox ntp i3blocks alsa-utils pulseaudio ConsoleKit2 pavucontrol vlc docker
+xbps-install -y vim curl i3 dmenu xorg firefox ntp i3blocks alsa-utils pulseaudio ConsoleKit2 pavucontrol vlc docker docker-compose
 
 git clone https://github.com/mircea-c/void-packages.git
 chown -R $(whoami):$(whoami) void-packages
@@ -12,6 +12,18 @@ cd void-packages
 
 xbps-install --repository=$PWD/hostdir/binpkgs st
 
+# xorg
 cd ..
-sudo cp xinitrc /etc/X11/xinit
+cp xinitrc /etc/X11/xinit
 cp -r .config $HOME
+
+# set up pulse audio (required for firefox...)
+cd /var/service
+ln -s /etc/sv/dbus /var/service/
+ln -s /etc/sv/cgmanager /var/service/
+ln -s /etc/sv/consolekit /var/service/
+
+# Set up Docker
+mkdir /sys/fs/cgroup/systemd
+ln -s /etc/sv/docker /var/service
+usermod -aG docker mircea
