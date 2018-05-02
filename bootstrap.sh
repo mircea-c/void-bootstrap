@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-xbps-install -y vim curl i3 dmenu xorg firefox ntp i3blocks alsa-utils pulseaudio ConsoleKit2 pavucontrol vlc docker docker-compose
+xbps-install -y git vim curl i3 dmenu xorg firefox ntp i3blocks alsa-utils pulseaudio ConsoleKit2 pavucontrol vlc docker docker-compose
 
 git clone https://github.com/mircea-c/void-packages.git
 chown -R $(whoami):$(whoami) void-packages
